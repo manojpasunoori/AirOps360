@@ -1,0 +1,96 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: wms-inventory-service
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/airops_db}
+    username: ${SPRING_DATASOURCE_USERNAME:airops}
+    password: ${SPRING_DATASOURCE_PASSWORD:airops_secret}
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: wms
+        format_sql: true
+
+  kafka:
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:29092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: false
+    consumer:
+      group-id: wms-inventory-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "com.airops.*"
+
+  data:
+    redis:
+      host: ${SPRING_DATA_REDIS_HOST:localhost}
+      port: 6379
+      password: ${SPRING_DATA_REDIS_PASSWORD:airops_secret}
+      timeout: 2000ms
+
+  flyway:
+    enabled: false  # DB initialized via init-db.sql in Docker
+
+  graphql:
+    graphiql:
+      enabled: true
+
+# Kafka Topics
+kafka:
+  topics:
+    inventory-events: inventory_events
+    shipment-events: shipment_events
+    crew-alerts: crew_alerts
+
+# Actuator / Prometheus
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  endpoint:
+    health:
+      show-details: always
+
+# OpenAPI
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+# App config
+airops:
+  wms:
+    max-pick-quantity: 1000
+    low-stock-threshold: 10
+  jwt:
+    secret: ${JWT_SECRET:airops_jwt_secret_local}
+    expiry-ms: 86400000
+
+logging:
+  level:
+    com.airops: DEBUG
+    org.springframework.kafka: INFO
