@@ -1,3 +1,4 @@
+using AirOps360.BaggageService;
 using AirOps360.BaggageService.Processing;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;

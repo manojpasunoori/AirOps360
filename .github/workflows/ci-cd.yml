@@ -136,6 +136,10 @@ jobs:
         working-directory: frontend/operations-dashboard
         run: npm install
 
+      - name: Build dashboard for Playwright preview
+        working-directory: frontend/operations-dashboard
+        run: npm run build
+
       - name: Install gateway dependencies
         working-directory: services/api-gateway
         run: npm install
