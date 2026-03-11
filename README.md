@@ -178,6 +178,21 @@ AirOps360/
 `-- docs/
 ```
 
+## Running AirOps360
+
+Start the entire platform:
+
+```bash
+docker compose up
+```
+
+Open dashboards:
+
+Kafka UI:
+[http://localhost:8080](http://localhost:8080)
+
+The simulator automatically generates live airline operations events.
+
 ## Local Development And Testing
 
 ### Start shared infrastructure
@@ -228,3 +243,5 @@ AirOps360 is designed around free public or synthetic sources:
 - The repo still contains a few older exploratory folders outside the canonical AirOps360 layout.
 - `worker-service` and `analytics-service` are documented as planned services and not yet implemented at the same depth as the active services.
 - The strongest source of truth for the current platform shape is the combination of `services/`, `frontend/operations-dashboard/`, `infrastructure/`, and the documentation under `docs/`.
+
+
