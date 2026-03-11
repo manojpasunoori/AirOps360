@@ -1,0 +1,13 @@
+package com.airops360.warehouseservice.api;
+
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+
+public record WarehouseReceiveRequest(
+    @NotBlank String manifestReference,
+    @NotBlank String sku,
+    @NotBlank String storageZone,
+    @Min(1) int quantity,
+    @NotBlank String receivedBy
+) {
+}
