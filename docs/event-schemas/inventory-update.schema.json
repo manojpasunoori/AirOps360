@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://airops360.local/schemas/inventory-update.schema.json",
+  "title": "InventoryUpdateEvent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eventId",
+    "eventType",
+    "occurredAt",
+    "sku",
+    "itemName",
+    "storageZone",
+    "quantityOnHand",
+    "reorderThreshold"
+  ],
+  "properties": {
+    "eventId": { "type": "string", "minLength": 8 },
+    "eventType": { "const": "inventory.update" },
+    "occurredAt": { "type": "string", "format": "date-time" },
+    "sku": { "type": "string", "minLength": 3, "maxLength": 40 },
+    "itemName": { "type": "string", "minLength": 2, "maxLength": 120 },
+    "storageZone": { "type": "string", "minLength": 2, "maxLength": 24 },
+    "quantityOnHand": { "type": "integer", "minimum": 0 },
+    "reorderThreshold": { "type": "integer", "minimum": 0 },
+    "source": { "type": ["string", "null"], "maxLength": 32 }
+  }
+}

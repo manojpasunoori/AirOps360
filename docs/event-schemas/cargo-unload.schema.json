@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://airops360.local/schemas/cargo-unload.schema.json",
+  "title": "CargoUnloadEvent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eventId",
+    "eventType",
+    "occurredAt",
+    "manifestReference",
+    "flightNumber",
+    "cargoType",
+    "pieces",
+    "weightKg"
+  ],
+  "properties": {
+    "eventId": { "type": "string", "minLength": 8 },
+    "eventType": { "const": "cargo.unload" },
+    "occurredAt": { "type": "string", "format": "date-time" },
+    "manifestReference": { "type": "string", "minLength": 3, "maxLength": 40 },
+    "flightNumber": { "type": "string", "minLength": 2, "maxLength": 16 },
+    "cargoType": { "type": "string", "minLength": 2, "maxLength": 40 },
+    "originAirport": { "type": ["string", "null"], "minLength": 3, "maxLength": 3 },
+    "destinationAirport": { "type": ["string", "null"], "minLength": 3, "maxLength": 3 },
+    "pieces": { "type": "integer", "minimum": 1 },
+    "weightKg": { "type": "number", "exclusiveMinimum": 0 },
+    "priority": {
+      "type": "string",
+      "enum": ["STANDARD", "EXPRESS", "CRITICAL"]
+    }
+  }
+}
