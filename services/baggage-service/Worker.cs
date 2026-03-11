@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 
 namespace AirOps360.BaggageService;
 
-public sealed class Worker : BackgroundService
+public class Worker : BackgroundService
 {
     private readonly ILogger<Worker> _logger;
     private readonly BaggageScanProcessor _processor;
