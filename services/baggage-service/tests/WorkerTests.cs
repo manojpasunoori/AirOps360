@@ -10,7 +10,7 @@ namespace AirOps360.BaggageService.Tests;
 public sealed class WorkerTests
 {
     [Test]
-    public async Task ExecuteAsync_LogsProcessedBagBeforeCancellation()
+    public void ProcessSampleScan_LogsProcessedBag()
     {
         var logger = new Mock<ILogger<Worker>>();
         var processor = new BaggageScanProcessor();
@@ -20,18 +20,12 @@ public sealed class WorkerTests
             SourceTopic = "baggage.scan",
             ProcessorName = "test-baggage-worker"
         });
-        var worker = new TestWorker(logger.Object, processor, options);
-        using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMilliseconds(50));
+        var worker = new Worker(logger.Object, processor, options);
 
-        try
-        {
-            await worker.RunAsync(cancellationTokenSource.Token);
-        }
-        catch (TaskCanceledException)
-        {
-            // Expected when the delay is interrupted by the cancellation token.
-        }
+        var processed = worker.ProcessSampleScan();
 
+        Assert.That(processed.BagTag, Is.EqualTo("BG-LOCAL-1001"));
+        Assert.That(processed.Status, Is.EqualTo("PROCESSED"));
         logger.Verify(
             log => log.Log(
                 LogLevel.Information,
@@ -40,18 +34,5 @@ public sealed class WorkerTests
                 It.IsAny<Exception>(),
                 It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
             Times.AtLeastOnce);
-    }
-
-    private sealed class TestWorker : Worker
-    {
-        public TestWorker(
-            ILogger<Worker> logger,
-            BaggageScanProcessor processor,
-            IOptions<BaggageWorkerOptions> options)
-            : base(logger, processor, options)
-        {
-        }
-
-        public Task RunAsync(CancellationToken stoppingToken) => ExecuteAsync(stoppingToken);
     }
 }
