@@ -8,4 +8,4 @@ Project documentation for AirOps360.
 - `deployment/kubernetes-deployment.md` explains how to render and apply the Kubernetes development overlay
 - `ci-cd.md` summarizes the current GitHub Actions workflow coverage
 - `argocd.md` explains the current GitOps entrypoints for syncing AirOps360 through ArgoCD
-- `observability.md` summarizes the current Prometheus metrics endpoints and scrape configuration
+- `observability.md` summarizes the current Prometheus metrics endpoints and Grafana starter dashboards
