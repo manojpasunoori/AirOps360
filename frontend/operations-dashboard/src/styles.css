@@ -2,10 +2,12 @@
   color-scheme: light;
   --bg: #f4efe6;
   --surface: rgba(255, 252, 247, 0.85);
+  --surface-strong: rgba(255, 250, 242, 0.96);
   --ink: #1e1d1a;
   --muted: #5d6258;
   --accent: #cf5b2f;
   --accent-deep: #7f3015;
+  --accent-soft: #f3c9ae;
   --line: rgba(30, 29, 26, 0.08);
 }
 
@@ -47,7 +49,8 @@ body {
   box-shadow: 0 20px 60px rgba(48, 39, 27, 0.08);
 }
 
-.eyebrow {
+.eyebrow,
+.section-kicker {
   margin: 0 0 0.75rem;
   color: var(--accent-deep);
   font-size: 0.8rem;
@@ -58,7 +61,7 @@ body {
 
 .hero h1 {
   margin: 0;
-  font-size: clamp(2.4rem, 5vw, 4.6rem);
+  font-size: clamp(2.4rem, 5vw, 4.4rem);
   line-height: 0.95;
   letter-spacing: -0.04em;
 }
@@ -69,6 +72,31 @@ body {
   color: var(--muted);
   font-size: 1.05rem;
   line-height: 1.6;
+}
+
+.hero-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 1.5rem;
+}
+
+.hero-metrics div {
+  min-width: 120px;
+  padding: 0.9rem 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid var(--line);
+}
+
+.hero-metrics strong {
+  display: block;
+  font-size: 1.5rem;
+}
+
+.hero-metrics span {
+  color: var(--muted);
+  font-size: 0.88rem;
 }
 
 .hero-mark {
@@ -107,6 +135,97 @@ body {
   font-weight: 800;
   letter-spacing: 0.14em;
   box-shadow: 0 24px 50px rgba(127, 48, 21, 0.28);
+}
+
+.flight-board {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 26px;
+  border: 1px solid var(--line);
+  background: var(--surface-strong);
+  box-shadow: 0 18px 44px rgba(48, 39, 27, 0.06);
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: 1.7rem;
+}
+
+.section-note {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.flight-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.flight-card {
+  padding: 1.2rem;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(247, 241, 233, 0.95));
+}
+
+.flight-card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: start;
+}
+
+.flight-number {
+  margin: 0 0 0.3rem;
+  color: var(--accent-deep);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.flight-card h3 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.flight-status {
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent-deep);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.flight-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  margin: 1.1rem 0 0;
+}
+
+.flight-details dt {
+  color: var(--muted);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.flight-details dd {
+  margin: 0.35rem 0 0;
+  font-weight: 700;
 }
 
 .panel-grid {
@@ -150,5 +269,14 @@ body {
 
   .hero-mark {
     min-height: 180px;
+  }
+
+  .section-heading {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .flight-details {
+    grid-template-columns: 1fr 1fr;
   }
 }

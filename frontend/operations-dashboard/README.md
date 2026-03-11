@@ -2,13 +2,13 @@
 
 React and TypeScript dashboard for airport ground and warehouse operations.
 
-## Commit 14 scope
+## Commit 15 scope
 
-This frontend now includes a minimal React dashboard shell with:
-- Vite + TypeScript project scaffold
-- application bootstrap and styling entry point
-- bold landing layout for the operations control surface
-- placeholder cards for flight, baggage, warehouse, cargo, and alerts views
+This frontend now includes a first flight monitoring view with:
+- hero metrics for inbound flight posture
+- an inbound operations board for sample arrivals
+- structured flight status cards with route, gate, arrival, and variance details
+- remaining dashboard areas preserved as placeholders for later commits
 
 ## Planned views
 - Flight monitoring
