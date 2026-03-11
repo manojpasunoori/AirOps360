@@ -2,9 +2,9 @@
 
 This folder contains local container environment guidance for AirOps360.
 
-## Commit 3 scope
+## Commit 4 scope
 
-The local Docker environment now provisions the shared stateful dependencies and the event backbone required by the platform:
+The local Docker environment now bootstraps the canonical PostgreSQL schema alongside the shared platform dependencies:
 - PostgreSQL for operational data
 - Redis for cache-backed workflows
 - MongoDB for cargo metadata and flexible documents
@@ -24,6 +24,18 @@ To customize credentials or ports, copy the root `.env.example` to `.env` and ad
 
 Kafka UI is exposed at `http://localhost:8080` by default.
 
+## PostgreSQL bootstrap
+
+On first startup, PostgreSQL runs the SQL files mounted from `infrastructure/docker/postgres/init`.
+The initial bootstrap creates the canonical AirOps360 tables:
+- `flights`
+- `baggage_scans`
+- `cargo_manifest`
+- `warehouse_inventory`
+- `worker_tasks`
+
+A copy of the same bootstrap SQL is also kept at `scripts/init-db.sql` for direct local execution if needed.
+
 ## Local topics
 
 The compose stack bootstraps the canonical AirOps360 topics:
@@ -37,5 +49,5 @@ See `infrastructure/docker/kafka-topics.md` for the topic list and intent.
 
 ## Planned next steps
 
-- Commit 4: PostgreSQL schema bootstrap assets
+- Commit 5: flight-service skeleton
 - Later commits: service containers and producer/consumer wiring
