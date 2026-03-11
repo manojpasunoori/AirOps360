@@ -6,25 +6,25 @@ AirOps360 is organized as an event-driven airport ground and warehouse operation
 
 ```mermaid
 flowchart LR
-    OpenSky[OpenSky Network] --> FlightService[flight-service\nSpring Boot]
-    FAA[FAA NAS Status] --> FlightService
-    Weather[OpenWeather] --> FlightService
-    Simulator[simulator-service\nFastAPI] --> Kafka[(Kafka Topics)]
+    OpenSky["OpenSky Network"] --> FlightService["flight-service<br/>Spring Boot"]
+    FAA["FAA NAS Status"] --> FlightService
+    Weather["OpenWeather"] --> FlightService
+    Simulator["simulator-service<br/>FastAPI"] --> Kafka[("Kafka Topics")]
     FlightService --> Kafka
-    CargoService[cargo-service\nFastAPI] --> Kafka
-    WarehouseService[warehouse-service\nSpring Boot] --> Kafka
-    BaggageService[baggage-service\n.NET Worker] --> Kafka
-    Kafka --> InventoryService[inventory-service\nSpring Boot]
-    Kafka --> AnalyticsService[analytics-service\nplanned]
-    ApiGateway[api-gateway\nNode Koa] --> FlightService
+    CargoService["cargo-service<br/>FastAPI"] --> Kafka
+    WarehouseService["warehouse-service<br/>Spring Boot"] --> Kafka
+    BaggageService["baggage-service<br/>.NET Worker"] --> Kafka
+    Kafka --> InventoryService["inventory-service<br/>Spring Boot"]
+    Kafka --> AnalyticsService["analytics-service<br/>planned"]
+    ApiGateway["api-gateway<br/>Node Koa"] --> FlightService
     ApiGateway --> CargoService
     ApiGateway --> WarehouseService
     ApiGateway --> InventoryService
-    Dashboard[operations-dashboard\nReact + TypeScript] --> ApiGateway
-    FlightService --> Postgres[(PostgreSQL)]
+    Dashboard["operations-dashboard<br/>React + TypeScript"] --> ApiGateway
+    FlightService --> Postgres[("PostgreSQL")]
     WarehouseService --> Postgres
-    InventoryService --> Redis[(Redis)]
-    CargoService --> Mongo[(MongoDB)]
+    InventoryService --> Redis[("Redis")]
+    CargoService --> Mongo[("MongoDB")]
 ```
 
 ## Operational Event Flow
@@ -38,19 +38,20 @@ sequenceDiagram
     participant Cargo as cargo-service
     participant Warehouse as warehouse-service
     participant Inventory as inventory-service
+    participant ApiGateway as api-gateway
     participant Dashboard as operations-dashboard
 
-    Telemetry->>Flight: Flight telemetry / arrival signal
+    Telemetry->>Flight: Flight telemetry and arrival signal
     Flight->>Kafka: flight.arrival
-    Simulator->>Kafka: baggage.scan / cargo.unload / warehouse.receive
+    Telemetry->>Kafka: baggage.scan, cargo.unload, warehouse.receive
     Kafka->>Baggage: baggage.scan
     Kafka->>Cargo: cargo.unload
     Kafka->>Warehouse: warehouse.receive
     Warehouse->>Kafka: inventory.update
     Kafka->>Inventory: inventory.update
     Dashboard->>ApiGateway: UI requests
-    ApiGateway->>Flight: telemetry / status
-    ApiGateway->>Inventory: cache / inventory status
+    ApiGateway->>Flight: telemetry and status
+    ApiGateway->>Inventory: cache and inventory status
 ```
 
 ## Current Quality Notes
