@@ -51,27 +51,35 @@ public class OpenSkyTelemetryService {
             return null;
         }
 
-        String icao24 = asString(state.get(0));
-        String callsign = trimToNull(asString(state.get(1)));
-        String originCountry = asString(state.get(2));
-        OffsetDateTime timestamp = asEpochSeconds(state.get(3))
-            .or(() -> asEpochSeconds(state.get(4)))
-            .map(value -> OffsetDateTime.ofInstant(Instant.ofEpochSecond(value), ZoneOffset.UTC))
-            .orElse(null);
+        String icao24 = trimToNull(asString(state.get(0)));
+        if (icao24 == null) {
+            return null;
+        }
 
-        return new FlightTelemetry(
-            icao24,
-            callsign,
-            originCountry,
-            timestamp,
-            asDouble(state.get(5)),
-            asDouble(state.get(6)),
-            asDouble(state.get(7)),
-            asBoolean(state.get(8)),
-            asDouble(state.get(9)),
-            asDouble(state.get(10)),
-            "OpenSky"
-        );
+        try {
+            String callsign = trimToNull(asString(state.get(1)));
+            String originCountry = trimToNull(asString(state.get(2)));
+            OffsetDateTime timestamp = asEpochSeconds(state.get(3))
+                .or(() -> asEpochSeconds(state.get(4)))
+                .map(value -> OffsetDateTime.ofInstant(Instant.ofEpochSecond(value), ZoneOffset.UTC))
+                .orElse(null);
+
+            return new FlightTelemetry(
+                icao24,
+                callsign,
+                originCountry,
+                timestamp,
+                asDouble(state.get(5)),
+                asDouble(state.get(6)),
+                asDouble(state.get(7)),
+                asBoolean(state.get(8)),
+                asDouble(state.get(9)),
+                asDouble(state.get(10)),
+                "OpenSky"
+            );
+        } catch (NumberFormatException exception) {
+            return null;
+        }
     }
 
     private String valueOrDefault(String supplied, String fallback) {

@@ -66,4 +66,28 @@ class OpenSkyTelemetryServiceTests {
 
         assertThat(service.normalize(response)).isEmpty();
     }
+
+    @Test
+    void normalizeSkipsRowsWithMalformedNumericValues() {
+        OpenSkyStatesResponse response = new OpenSkyStatesResponse(
+            1710200000L,
+            List.of(
+                List.of(
+                    "abc123",
+                    "AA101",
+                    "United States",
+                    1710200000L,
+                    1710200005L,
+                    "bad-longitude",
+                    32.8998,
+                    3048.0,
+                    false,
+                    215.5,
+                    182.1
+                )
+            )
+        );
+
+        assertThat(service.normalize(response)).isEmpty();
+    }
 }
