@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: airops360-dev
+  namespace: argocd
+spec:
+  project: airops360
+  source:
+    repoURL: https://github.com/manojpasunoori/AirOps360.git
+    targetRevision: main
+    path: infrastructure/kubernetes/overlays/dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: airops360
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

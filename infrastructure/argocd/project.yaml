@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: airops360
+  namespace: argocd
+spec:
+  description: GitOps project for the AirOps360 airport ground and warehouse platform.
+  sourceRepos:
+    - https://github.com/manojpasunoori/AirOps360.git
+  destinations:
+    - namespace: airops360
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
