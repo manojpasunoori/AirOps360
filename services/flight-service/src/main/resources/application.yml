@@ -8,6 +8,16 @@ server:
 app:
   version: 0.0.1-SNAPSHOT
 
+integration:
+  opensky:
+    base-url: https://opensky-network.org
+    states-path: /api/states/all
+    timeout: 10s
+    default-lam-min: 25.0
+    default-lam-max: 49.5
+    default-lomin: -124.8
+    default-lomax: -66.9
+
 management:
   endpoints:
     web:
