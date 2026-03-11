@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from prometheus_fastapi_instrumentator import Instrumentator
 
 from app.api.cargo import router as cargo_router
 from app.api.health import router as health_router
@@ -12,3 +13,5 @@ app = FastAPI(
 )
 app.include_router(health_router)
 app.include_router(cargo_router)
+
+Instrumentator(excluded_handlers=["/health"]).instrument(app).expose(app, include_in_schema=False)

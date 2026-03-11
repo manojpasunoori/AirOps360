@@ -1,0 +1,40 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: flight-service
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets:
+          - flight-service:8081
+
+  - job_name: warehouse-service
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets:
+          - warehouse-service:8082
+
+  - job_name: inventory-service
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets:
+          - inventory-service:8083
+
+  - job_name: cargo-service
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - cargo-service:8000
+
+  - job_name: simulator-service
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - simulator-service:8001
+
+  - job_name: api-gateway
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - api-gateway:3000
