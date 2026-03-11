@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: inventory-service
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:airops_secret}
+      timeout: 5s
+
+server:
+  port: 8083
+
+app:
+  version: 0.0.1-SNAPSHOT
+
+inventory:
+  cache:
+    ttl: ${INVENTORY_CACHE_TTL:PT30M}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
