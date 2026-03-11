@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: airops360
+resources:
+  - ../../base
+patchesStrategicMerge:
+  - api-gateway-nodeport.yaml
+  - operations-dashboard-nodeport.yaml
+images:
+  - name: airops360/flight-service
+    newTag: dev
+  - name: airops360/cargo-service
+    newTag: dev
+  - name: airops360/warehouse-service
+    newTag: dev
+  - name: airops360/inventory-service
+    newTag: dev
+  - name: airops360/baggage-service
+    newTag: dev
+  - name: airops360/simulator-service
+    newTag: dev
+  - name: airops360/api-gateway
+    newTag: dev
+  - name: airops360/operations-dashboard
+    newTag: dev
+commonLabels:
+  app.kubernetes.io/part-of: airops360
+  app.kubernetes.io/environment: dev

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: operations-dashboard
+  namespace: airops360
+spec:
+  type: NodePort
+  ports:
+    - port: 3001
+      targetPort: 3001
+      nodePort: 30081

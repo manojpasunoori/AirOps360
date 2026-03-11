@@ -2,20 +2,28 @@
 
 Kubernetes manifests and deployment overlays for AirOps360.
 
-## Commit 19 scope
-
-This folder now includes a base Kubernetes manifest set for the current AirOps360 application tier:
-- namespace definition
-- shared application ConfigMap
-- Deployments and Services for flight, cargo, warehouse, inventory, baggage, simulator, gateway, and dashboard components
-- `kustomization.yaml` for assembling the base resources
-
 ## Structure
-- `base/namespace.yaml`
-- `base/app-config.yaml`
-- `base/*.yaml` service manifests
-- `base/kustomization.yaml`
+- `base/` reusable namespace, config, Deployments, and internal Services
+- `overlays/dev/` local-development overlay with dev image tags and NodePort exposure for the gateway and dashboard
+
+## Render manifests
+
+```bash
+kubectl kustomize infrastructure/kubernetes/base
+kubectl kustomize infrastructure/kubernetes/overlays/dev
+```
+
+## Apply the development overlay
+
+```bash
+kubectl apply -k infrastructure/kubernetes/overlays/dev
+```
+
+## Access points after deployment
+- API gateway: `http://localhost:30080`
+- Operations dashboard: `http://localhost:30081`
 
 ## Notes
-- These are base manifests only and intentionally use placeholder images such as `airops360/<service>:latest`.
-- Environment-specific deployment settings, ingress, and infra dependencies can be layered on in the next commit.
+- The dev overlay expects images tagged as `airops360/<service>:dev`.
+- Backing infrastructure like Kafka, Redis, MongoDB, and PostgreSQL can be layered in later or provided externally.
+- Detailed deployment steps are documented in `docs/deployment/kubernetes-deployment.md`.

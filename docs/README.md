@@ -1,13 +1,8 @@
-# docs
+# Documentation
 
-Documentation for the AirOps360 platform lives in this folder.
+Project documentation for AirOps360.
 
-## Current documents
-- `repository-structure.md` - canonical repository layout and folder responsibilities
-- `event-schemas/README.md` - canonical Kafka event contract index
-
-## Planned additions
-- architecture overview
-- local development guide
-- deployment documentation
-- testing strategy
+## Sections
+- `repository-structure.md` describes the canonical folder layout
+- `event-schemas/` defines the Kafka event contracts shared by platform services
+- `deployment/kubernetes-deployment.md` explains how to render and apply the Kubernetes development overlay
