@@ -12,6 +12,7 @@
   --ok: #2f6a45;
   --warn: #8d5a16;
   --risk: #ab3327;
+  --info: #305e94;
 }
 
 * {
@@ -141,7 +142,8 @@ body {
 }
 
 .flight-board,
-.warehouse-board {
+.warehouse-board,
+.baggage-board {
   margin-top: 1.5rem;
   padding: 1.5rem;
   border-radius: 26px;
@@ -169,14 +171,16 @@ body {
 }
 
 .flight-grid,
-.zone-grid {
+.zone-grid,
+.baggage-lane-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1rem;
 }
 
 .flight-card,
-.zone-card {
+.zone-card,
+.baggage-lane-card {
   padding: 1.2rem;
   border-radius: 22px;
   border: 1px solid var(--line);
@@ -184,7 +188,8 @@ body {
 }
 
 .flight-card-top,
-.zone-card-top {
+.zone-card-top,
+.baggage-lane-top {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
@@ -203,7 +208,9 @@ body {
 
 .flight-card h3,
 .zone-card h3,
-.inventory-signals h3 {
+.inventory-signals h3,
+.baggage-exceptions h3,
+.baggage-lane-card h3 {
   margin: 0;
   font-size: 1.3rem;
 }
@@ -219,7 +226,8 @@ body {
   letter-spacing: 0.08em;
 }
 
-.flight-details {
+.flight-details,
+.baggage-lane-metrics {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.8rem;
@@ -227,7 +235,9 @@ body {
 }
 
 .flight-details dt,
-.inventory-row dt {
+.inventory-row dt,
+.baggage-lane-metrics dt,
+.exception-row dt {
   color: var(--muted);
   font-size: 0.76rem;
   text-transform: uppercase;
@@ -235,12 +245,15 @@ body {
 }
 
 .flight-details dd,
-.inventory-row dd {
+.inventory-row dd,
+.baggage-lane-metrics dd,
+.exception-row dd {
   margin: 0.35rem 0 0;
   font-weight: 700;
 }
 
-.warehouse-layout {
+.warehouse-layout,
+.baggage-layout {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
   gap: 1rem;
@@ -251,20 +264,23 @@ body {
   color: var(--muted);
 }
 
-.inventory-signals {
+.inventory-signals,
+.baggage-exceptions {
   padding: 1.2rem;
   border-radius: 22px;
   border: 1px solid var(--line);
   background: linear-gradient(180deg, rgba(250, 246, 239, 0.95), rgba(241, 235, 226, 0.95));
 }
 
-.inventory-table {
+.inventory-table,
+.exception-list {
   display: grid;
   gap: 0.9rem;
   margin-top: 1rem;
 }
 
-.inventory-row {
+.inventory-row,
+.exception-row {
   display: grid;
   grid-template-columns: 1.5fr 1fr auto;
   gap: 1rem;
@@ -273,17 +289,20 @@ body {
   border-top: 1px solid var(--line);
 }
 
-.inventory-row:first-child {
+.inventory-row:first-child,
+.exception-row:first-child {
   border-top: 0;
   padding-top: 0;
 }
 
-.inventory-row h4 {
+.inventory-row h4,
+.exception-row h4 {
   margin: 0;
   font-size: 1rem;
 }
 
-.inventory-row dl {
+.inventory-row dl,
+.exception-row div:nth-child(2) {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.75rem;
@@ -299,7 +318,8 @@ body {
   letter-spacing: 0.08em;
 }
 
-.inventory-status-healthy {
+.inventory-status-healthy,
+.inventory-status-recovered {
   background: rgba(47, 106, 69, 0.12);
   color: var(--ok);
 }
@@ -309,7 +329,8 @@ body {
   color: var(--warn);
 }
 
-.inventory-status-reorder {
+.inventory-status-reorder,
+.inventory-status-reroute {
   background: rgba(171, 51, 39, 0.12);
   color: var(--risk);
 }
@@ -349,11 +370,13 @@ body {
 }
 
 @media (max-width: 920px) {
-  .warehouse-layout {
+  .warehouse-layout,
+  .baggage-layout {
     grid-template-columns: 1fr;
   }
 
-  .inventory-row {
+  .inventory-row,
+  .exception-row {
     grid-template-columns: 1fr;
   }
 }
@@ -372,7 +395,8 @@ body {
     flex-direction: column;
   }
 
-  .flight-details {
+  .flight-details,
+  .baggage-lane-metrics {
     grid-template-columns: 1fr 1fr;
   }
 }

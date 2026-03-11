@@ -2,13 +2,13 @@
 
 React and TypeScript dashboard for airport ground and warehouse operations.
 
-## Commit 16 scope
+## Commit 17 scope
 
-This frontend now includes a warehouse inventory view with:
-- storage zone utilization cards
-- warehouse receiving posture summary
-- inventory watchlist with reorder signals
-- remaining dashboard areas preserved as placeholders for later commits
+This frontend now includes a baggage scans view with:
+- sorter lane throughput cards
+- baggage exception watchlist
+- scan progress and reroute posture summary
+- cargo and alerts preserved as placeholders for later commits
 
 ## Planned views
 - Flight monitoring

@@ -70,11 +70,49 @@ const inventorySignals = [
   },
 ];
 
-const panels = [
+const baggageLanes = [
   {
-    title: "Baggage Scans",
-    description: "Checkpoint, sorter, and loading milestones for bag flow visibility.",
+    lane: "Sorter A",
+    scanned: 284,
+    loaded: 261,
+    exceptionRate: "1.4%",
   },
+  {
+    lane: "Sorter B",
+    scanned: 233,
+    loaded: 219,
+    exceptionRate: "2.1%",
+  },
+  {
+    lane: "Transfer Belt",
+    scanned: 118,
+    loaded: 109,
+    exceptionRate: "3.8%",
+  },
+];
+
+const baggageExceptions = [
+  {
+    bagTag: "BG-44321",
+    flight: "AA101",
+    lastPoint: "SORTER-A",
+    state: "Watch",
+  },
+  {
+    bagTag: "BG-44387",
+    flight: "UA220",
+    lastPoint: "TRANSFER-BELT",
+    state: "Reroute",
+  },
+  {
+    bagTag: "BG-44405",
+    flight: "DL417",
+    lastPoint: "LOADING-BAY-3",
+    state: "Recovered",
+  },
+];
+
+const panels = [
   {
     title: "Cargo Status",
     description: "Unload progress, manifest readiness, and transfer coordination snapshots.",
@@ -199,6 +237,60 @@ export default function App() {
                   </dl>
                   <span className={`inventory-status inventory-status-${item.status.toLowerCase()}`}>
                     {item.status}
+                  </span>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="baggage-board">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Baggage Scans</p>
+            <h2>Sorter flow and exception posture</h2>
+          </div>
+          <span className="section-note">Worker and simulator scan stream snapshot</span>
+        </div>
+
+        <div className="baggage-layout">
+          <div className="baggage-lane-grid">
+            {baggageLanes.map((lane) => (
+              <article className="baggage-lane-card" key={lane.lane}>
+                <div className="baggage-lane-top">
+                  <h3>{lane.lane}</h3>
+                  <span>{lane.exceptionRate}</span>
+                </div>
+                <dl className="baggage-lane-metrics">
+                  <div>
+                    <dt>Scanned</dt>
+                    <dd>{lane.scanned}</dd>
+                  </div>
+                  <div>
+                    <dt>Loaded</dt>
+                    <dd>{lane.loaded}</dd>
+                  </div>
+                </dl>
+              </article>
+            ))}
+          </div>
+
+          <div className="baggage-exceptions">
+            <h3>Exception watchlist</h3>
+            <div className="exception-list">
+              {baggageExceptions.map((exception) => (
+                <article className="exception-row" key={exception.bagTag}>
+                  <div>
+                    <p className="inventory-sku">{exception.bagTag}</p>
+                    <h4>{exception.flight}</h4>
+                  </div>
+                  <div>
+                    <dt>Last Point</dt>
+                    <dd>{exception.lastPoint}</dd>
+                  </div>
+                  <span className={`inventory-status inventory-status-${exception.state.toLowerCase()}`}>
+                    {exception.state}
                   </span>
                 </article>
               ))}
