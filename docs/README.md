@@ -9,3 +9,4 @@ Project documentation for AirOps360.
 - `ci-cd.md` summarizes the current GitHub Actions workflow coverage
 - `argocd.md` explains the current GitOps entrypoints for syncing AirOps360 through ArgoCD
 - `observability.md` summarizes the current Prometheus metrics endpoints and Grafana starter dashboards
+- `automated-tests.md` summarizes the current Playwright, Cucumber, NUnit, and Moq test coverage

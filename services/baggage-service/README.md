@@ -2,14 +2,11 @@
 
 .NET 8 worker responsible for baggage scan processing.
 
-## Commit 10 scope
-
-This service now includes a minimal .NET worker skeleton with:
-- worker project configuration in `BaggageService.csproj`
-- host bootstrap and worker options binding
-- background worker loop for simulated scan processing
-- baggage scan domain models and a simple processor
-- local app settings and launch profile
+## Commit 25 scope
+This service now includes automated test coverage with:
+- NUnit test project under `tests/`
+- processor output assertions for baggage scan normalization
+- Moq-based verification of worker logging during a processing cycle
 
 ## Planned responsibilities
 - Consume baggage scan simulator events
