@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "test": "cucumber-js"
+    "test": "cucumber-js --require steps/**/*.js"
   },
   "devDependencies": {
     "@cucumber/cucumber": "^11.2.0",
