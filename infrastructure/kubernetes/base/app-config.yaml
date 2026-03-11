@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: airops360-app-config
+  namespace: airops360
+data:
+  FLIGHT_SERVICE_URL: http://flight-service:8081
+  WAREHOUSE_SERVICE_URL: http://warehouse-service:8082
+  INVENTORY_SERVICE_URL: http://inventory-service:8083
+  CARGO_SERVICE_URL: http://cargo-service:8000
+  SIMULATOR_SERVICE_URL: http://simulator-service:8001
+  REDIS_HOST: redis
+  REDIS_PORT: "6379"
+  REDIS_PASSWORD: airops_secret
+  INVENTORY_CACHE_TTL: PT30M

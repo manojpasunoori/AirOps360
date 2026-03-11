@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: warehouse-service
+  namespace: airops360
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: warehouse-service
+  template:
+    metadata:
+      labels:
+        app: warehouse-service
+    spec:
+      containers:
+        - name: warehouse-service
+          image: airops360/warehouse-service:latest
+          ports:
+            - containerPort: 8082
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: warehouse-service
+  namespace: airops360
+spec:
+  selector:
+    app: warehouse-service
+  ports:
+    - port: 8082
+      targetPort: 8082

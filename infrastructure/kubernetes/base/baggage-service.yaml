@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: baggage-service
+  namespace: airops360
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: baggage-service
+  template:
+    metadata:
+      labels:
+        app: baggage-service
+    spec:
+      containers:
+        - name: baggage-service
+          image: airops360/baggage-service:latest
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi

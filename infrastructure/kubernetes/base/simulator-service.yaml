@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simulator-service
+  namespace: airops360
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simulator-service
+  template:
+    metadata:
+      labels:
+        app: simulator-service
+    spec:
+      containers:
+        - name: simulator-service
+          image: airops360/simulator-service:latest
+          ports:
+            - containerPort: 8001
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: simulator-service
+  namespace: airops360
+spec:
+  selector:
+    app: simulator-service
+  ports:
+    - port: 8001
+      targetPort: 8001
