@@ -2,52 +2,31 @@
 
 This folder contains local container environment guidance for AirOps360.
 
-## Commit 4 scope
+## Commit 18 scope
 
-The local Docker environment now bootstraps the canonical PostgreSQL schema alongside the shared platform dependencies:
-- PostgreSQL for operational data
-- Redis for cache-backed workflows
-- MongoDB for cargo metadata and flexible documents
-- Kafka in single-node KRaft mode for local event streaming
-- Kafka UI for topic inspection and debugging
+The repository now includes service-level Dockerfiles for the canonical AirOps360 scaffolds created so far:
+- `services/flight-service/Dockerfile`
+- `services/cargo-service/Dockerfile`
+- `services/warehouse-service/Dockerfile`
+- `services/inventory-service/Dockerfile`
+- `services/baggage-service/Dockerfile`
+- `services/simulator-service/Dockerfile`
+- `services/api-gateway/Dockerfile`
+
+These Dockerfiles are intentionally minimal and match each service's current runtime stack.
 
 ## Local usage
 
-From the repository root:
+Build an individual service image from the repository root, for example:
 
 ```bash
-docker compose up -d
-docker compose ps
+docker build -t airops360-flight-service ./services/flight-service
+docker build -t airops360-api-gateway ./services/api-gateway
 ```
 
-To customize credentials or ports, copy the root `.env.example` to `.env` and adjust the values before starting the stack.
+## Notes
 
-Kafka UI is exposed at `http://localhost:8080` by default.
-
-## PostgreSQL bootstrap
-
-On first startup, PostgreSQL runs the SQL files mounted from `infrastructure/docker/postgres/init`.
-The initial bootstrap creates the canonical AirOps360 tables:
-- `flights`
-- `baggage_scans`
-- `cargo_manifest`
-- `warehouse_inventory`
-- `worker_tasks`
-
-A copy of the same bootstrap SQL is also kept at `scripts/init-db.sql` for direct local execution if needed.
-
-## Local topics
-
-The compose stack bootstraps the canonical AirOps360 topics:
-- `flight.arrival`
-- `baggage.scan`
-- `cargo.unload`
-- `warehouse.receive`
-- `inventory.update`
-
-See `infrastructure/docker/kafka-topics.md` for the topic list and intent.
-
-## Planned next steps
-
-- Commit 5: flight-service skeleton
-- Later commits: service containers and producer/consumer wiring
+- Java services use multi-stage Maven + JRE images.
+- Python services install from `requirements.txt` and run with Uvicorn.
+- The .NET baggage worker uses SDK publish and a runtime-only final image.
+- The Node gateway installs runtime dependencies directly from `package.json`.
