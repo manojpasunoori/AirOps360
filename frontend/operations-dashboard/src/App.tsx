@@ -25,14 +25,55 @@ const flights = [
   },
 ];
 
+const warehouseZones = [
+  {
+    zone: "Zone A",
+    utilization: "74%",
+    inboundLoads: 6,
+    lowStock: 1,
+  },
+  {
+    zone: "Zone B",
+    utilization: "58%",
+    inboundLoads: 4,
+    lowStock: 3,
+  },
+  {
+    zone: "Zone C",
+    utilization: "88%",
+    inboundLoads: 9,
+    lowStock: 0,
+  },
+];
+
+const inventorySignals = [
+  {
+    sku: "BAG-TAG-STD",
+    label: "Standard Baggage Tags",
+    onHand: 5000,
+    threshold: 1000,
+    status: "Healthy",
+  },
+  {
+    sku: "ULD-NET-01",
+    label: "Cargo Restraint Net",
+    onHand: 24,
+    threshold: 6,
+    status: "Watch",
+  },
+  {
+    sku: "RAMP-CONE-02",
+    label: "Ramp Safety Cones",
+    onHand: 8,
+    threshold: 12,
+    status: "Reorder",
+  },
+];
+
 const panels = [
   {
     title: "Baggage Scans",
     description: "Checkpoint, sorter, and loading milestones for bag flow visibility.",
-  },
-  {
-    title: "Warehouse Inventory",
-    description: "Receiving posture, stock movement, and low inventory signals by zone.",
   },
   {
     title: "Cargo Status",
@@ -111,6 +152,58 @@ export default function App() {
               </dl>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="warehouse-board">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Warehouse Inventory</p>
+            <h2>Receiving posture by storage zone</h2>
+          </div>
+          <span className="section-note">Redis-backed inventory cache snapshot</span>
+        </div>
+
+        <div className="warehouse-layout">
+          <div className="zone-grid">
+            {warehouseZones.map((zone) => (
+              <article className="zone-card" key={zone.zone}>
+                <div className="zone-card-top">
+                  <h3>{zone.zone}</h3>
+                  <span>{zone.utilization}</span>
+                </div>
+                <p>Inbound loads: {zone.inboundLoads}</p>
+                <p>Low-stock alerts: {zone.lowStock}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="inventory-signals">
+            <h3>Inventory watchlist</h3>
+            <div className="inventory-table">
+              {inventorySignals.map((item) => (
+                <article className="inventory-row" key={item.sku}>
+                  <div>
+                    <p className="inventory-sku">{item.sku}</p>
+                    <h4>{item.label}</h4>
+                  </div>
+                  <dl>
+                    <div>
+                      <dt>On Hand</dt>
+                      <dd>{item.onHand}</dd>
+                    </div>
+                    <div>
+                      <dt>Threshold</dt>
+                      <dd>{item.threshold}</dd>
+                    </div>
+                  </dl>
+                  <span className={`inventory-status inventory-status-${item.status.toLowerCase()}`}>
+                    {item.status}
+                  </span>
+                </article>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
