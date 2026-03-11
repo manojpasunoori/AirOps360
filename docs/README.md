@@ -4,6 +4,8 @@ Project documentation for AirOps360.
 
 ## Sections
 - `repository-structure.md` describes the canonical folder layout
+- `architecture.md` explains the current system context and event flow diagrams
+- `local-development.md` explains how to start infrastructure and run tests locally
 - `event-schemas/` defines the Kafka event contracts shared by platform services
 - `deployment/kubernetes-deployment.md` explains how to render and apply the Kubernetes development overlay
 - `ci-cd.md` summarizes the current GitHub Actions workflow coverage

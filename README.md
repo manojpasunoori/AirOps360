@@ -66,6 +66,8 @@ AirOps360/
 
 ## Documentation
 
+- Architecture overview: `docs/architecture.md`
+- Local startup and testing: `docs/local-development.md`
 - Repository structure: `docs/repository-structure.md`
 - Service-level placeholders: `services/*/README.md`
 - Frontend placeholder: `frontend/operations-dashboard/README.md`
